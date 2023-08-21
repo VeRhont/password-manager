@@ -3,13 +3,15 @@ from random import choice
 
 
 def generate_password(length=8, nums=True, lower=False, upper=False, special=False):
-    available = nums and digits
-    available += lower and ascii_lowercase
-    available += upper and ascii_uppercase
-    available += special and punctuation
+    available = ''
+    if nums: available += digits
+    if lower: available += ascii_lowercase
+    if upper: available += ascii_uppercase
+    if special: available += punctuation
 
-    return available
+    password = ''.join(choice(available) for _ in range(length))
+    return password
 
 
 if __name__ == '__main__':
-    pass
+    print(generate_password())
