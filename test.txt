@@ -1,0 +1,4 @@
+Lorem ipsum
+
+login = admin
+password = 123

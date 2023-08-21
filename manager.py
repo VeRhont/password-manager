@@ -22,13 +22,21 @@ def create_account(website, login):
     print(f"Your generated password: {password}")
 
 
-def get_account_password(website, login):
+def get_account_password(website):
     with open("data.json", "r", encoding="utf-8") as file:
         file_data = json.load(file)
 
         for item in file_data:
-            if (item.get("website") == website) and (item.get("login") == login):
+            if item.get("website") == website:
                 print(item)
+
+
+def get_all_passwords():
+    with open("data.json", "r", encoding="utf-8") as file:
+        file_data = json.load(file)
+
+        for item in file_data:
+            print(item)
 
 
 def main():
@@ -42,9 +50,8 @@ def main():
 
     elif temp == 1:
         website = input("website: ")
-        login = input("login: ")
 
-        get_account_password(website, login)
+        get_account_password(website)
 
     else:
         print("Invalid command")
