@@ -1,5 +1,7 @@
 import json
 
+from colorama import Fore
+from config import SECRET_PASSWORD
 from password import generate_password
 from encryption import encryption
 from decryption import decryption
@@ -7,17 +9,17 @@ from decryption import decryption
 
 def print_item(data):
     print()
-    print(f"website: {data['website']}")
-    print(f"login: {data['login']}")
-    print(f"password: {data['password']}")
+    print(Fore.LIGHTMAGENTA_EX + f"website: {Fore.GREEN} {data['website']}")
+    print(Fore.LIGHTMAGENTA_EX + f"login: {Fore.GREEN} {data['login']}")
+    print(Fore.LIGHTMAGENTA_EX + f"password: {Fore.GREEN} {data['password']}")
     print()
 
 
 def encrypt(func):
     def wrapper(*args):
-        decryption("data.json.crp", "05070524390")
+        decryption("data.json.crp", SECRET_PASSWORD)
         func(*args)
-        encryption("data.json", "05070524390")
+        encryption("data.json", SECRET_PASSWORD)
     return wrapper
 
 
@@ -38,7 +40,7 @@ def create_account(website, login):
         file_data.append(user_data)
         json.dump(file_data, file, indent=4)
 
-    print(f"Your generated password: {password}")
+    print(f"Your generated password: {Fore.LIGHTYELLOW_EX} {password}")
     print()
 
 
@@ -54,7 +56,6 @@ def get_account_password(website):
 
 @encrypt
 def get_all_passwords():
-
     with open("data.json", "r", encoding="utf-8") as file:
         file_data = json.load(file)
 
@@ -69,23 +70,26 @@ def delete_all():
                    ""
                    "]")
 
+    print(Fore.RED + "All data is deleted")
+    print()
 
-def get_input(code):
-    temp = input("0 - create account\t1 - get password\t2 - get all passwords\t3 - delete all"
+
+def get_input():
+    temp = input(Fore.BLUE + "0 - create account\t1 - get password\t2 - get all passwords\t3 - delete all"
                      "\t4 - quit\n--> ")
 
     try:
         temp = int(temp)
     except:
-        print("Invalid input")
+        print(Fore.RED + "Invalid input")
 
     if temp == 0:
-        website = input("website: ")
-        login = input("login: ")
+        website = input(Fore.CYAN + "website: ")
+        login = input(Fore.CYAN + "login: ")
         create_account(website, login)
 
     elif temp == 1:
-        website = input("website: ")
+        website = input(Fore.CYAN + "website: ")
         get_account_password(website)
 
     elif temp == 2:
