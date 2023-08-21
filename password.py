@@ -2,7 +2,7 @@ from string import ascii_lowercase, ascii_uppercase, digits, punctuation
 from random import choice
 
 
-def generate_password(length=20, nums=True, lower=True, upper=True, special=True):
+def generate_password(length=36, nums=True, lower=True, upper=True, special=True):
     available = ""
     if nums: available += digits
     if lower: available += ascii_lowercase

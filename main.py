@@ -1,7 +1,18 @@
+import manager
+
+from config import SECRET_PASSWORD
+
+
 def main():
-    pass
+    password = input("Enter password: ")
+
+    if password != SECRET_PASSWORD:
+        print("INVALID PASSWORD!!!")
+        quit()
+
+    while True:
+        manager.get_input(password)
 
 
 if __name__ == '__main__':
-    password = input("Enter password: ")
     main()

@@ -2,13 +2,13 @@ import pyAesCrypt
 import os
 
 
-def encryption(file, password):
+def encryption(file, code):
     buffer_size = 512 * 1024
 
     pyAesCrypt.encryptFile(
         str(file),
         str(file) + ".crp",
-        password,
+        code,
         buffer_size
     )
 

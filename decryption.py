@@ -2,13 +2,13 @@ import pyAesCrypt
 import os
 
 
-def decryption(file, password):
+def decryption(file, code):
     buffer_size = 512 * 1024
 
     pyAesCrypt.decryptFile(
         str(file),
         str(os.path.splitext(file)[0]),
-        password,
+        code,
         buffer_size
     )
 
@@ -17,7 +17,7 @@ def decryption(file, password):
 
 def main():
     password = input("Enter password for decoding the file: ")
-    decryption("data.json", password)
+    decryption("data.json.crp", password)
 
 
 if __name__ == '__main__':
