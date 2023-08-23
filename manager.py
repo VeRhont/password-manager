@@ -45,6 +45,25 @@ def create_account(website, login):
 
 
 @encrypt
+def add_account(website, login, password):
+
+    user_data = {
+        "website": website,
+        "login": login,
+        "password": password
+    }
+
+    with open("data.json", "r", encoding="utf-8") as file:
+        file_data = json.load(file)
+
+    with open("data.json", "w") as file:
+        file_data.append(user_data)
+        json.dump(file_data, file, indent=4)
+
+    print('Account added successfully')
+
+
+@encrypt
 def get_account_password(website):
     with open("data.json", "r", encoding="utf-8") as file:
         file_data = json.load(file)
@@ -52,6 +71,9 @@ def get_account_password(website):
         for item in file_data:
             if item.get("website") == website:
                 print_item(item)
+                return
+        else:
+            print(Fore.RED + "Account doesn't exist!")
 
 
 @encrypt
@@ -75,8 +97,8 @@ def delete_all():
 
 
 def get_input():
-    temp = input(Fore.BLUE + "0 - create account\t1 - get password\t2 - get all passwords\t3 - delete all"
-                     "\t4 - quit\n--> ")
+    temp = input(Fore.BLUE + "0 - create account\t1 - add account\t2 - get password\t3 - get all passwords\t4 - delete all"
+                     "\t5 - quit\n--> ")
 
     try:
         temp = int(temp)
@@ -90,13 +112,19 @@ def get_input():
 
     elif temp == 1:
         website = input(Fore.CYAN + "website: ")
-        get_account_password(website)
+        login = input(Fore.CYAN + "login: ")
+        password = input(Fore.CYAN + "password: ")
+        add_account(website, login, password)
 
     elif temp == 2:
-        get_all_passwords()
+        website = input(Fore.CYAN + "website: ")
+        get_account_password(website)
 
     elif temp == 3:
-        delete_all()
+        get_all_passwords()
 
     elif temp == 4:
+        delete_all()
+
+    elif temp == 5:
         quit()
