@@ -23,25 +23,11 @@ def encrypt(func):
     return wrapper
 
 
-@encrypt
-def create_account(website, login):
+def create_password():
     password = generate_password()
-
-    user_data = {
-        "website": website,
-        "login": login,
-        "password": password
-    }
-
-    with open("data.json", "r", encoding="utf-8") as file:
-        file_data = json.load(file)
-
-    with open("data.json", "w") as file:
-        file_data.append(user_data)
-        json.dump(file_data, file, indent=4)
-
     print(f"Your generated password: {Fore.LIGHTYELLOW_EX} {password}")
-    print()
+
+    return password
 
 
 @encrypt
@@ -108,7 +94,8 @@ def get_input():
     if temp == 0:
         website = input(Fore.CYAN + "website: ")
         login = input(Fore.CYAN + "login: ")
-        create_account(website, login)
+        password = create_password()
+        add_account(website, login, password)
 
     elif temp == 1:
         website = input(Fore.CYAN + "website: ")
