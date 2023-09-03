@@ -46,7 +46,8 @@ def add_account(website, login, password):
         file_data.append(user_data)
         json.dump(file_data, file, indent=4)
 
-    print('Account added successfully')
+    print(Fore.LIGHTGREEN_EX + 'Account added successfully')
+    print()
 
 
 @encrypt
@@ -60,6 +61,7 @@ def get_account_password(website):
                 return
         else:
             print(Fore.RED + "Account doesn't exist!")
+            print()
 
 
 @encrypt
@@ -83,13 +85,14 @@ def delete_all():
 
 
 def get_input():
-    temp = input(Fore.BLUE + "0 - create account\t1 - add account\t2 - get password\t3 - get all passwords\t4 - delete all"
-                     "\t5 - quit\n--> ")
+    temp = input(Fore.LIGHTYELLOW_EX + "0 - create account\n1 - add account\n2 - get password\n3 - get all passwords\n4 - delete all"
+                     "\n5 - quit\n--> ")
 
     try:
         temp = int(temp)
     except:
         print(Fore.RED + "Invalid input")
+        print()
 
     if temp == 0:
         website = input(Fore.CYAN + "website: ")
@@ -111,7 +114,11 @@ def get_input():
         get_all_passwords()
 
     elif temp == 4:
-        delete_all()
+        if input(Fore.RED + "Enter password: ") == SECRET_PASSWORD:
+            delete_all()
+        else:
+            print(Fore.RED + "Invalid password")
+            print()
 
     elif temp == 5:
         quit()
